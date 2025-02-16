@@ -38,7 +38,6 @@ public class GameTest {
         }
     }
 
-    @Disabled
     @Test
     public void oneSpare() {
         // frame1 -> 5 + 5 + 3
