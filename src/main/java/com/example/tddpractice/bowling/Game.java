@@ -11,13 +11,35 @@ public class Game {
 
     public int getScore() {
         int score = 0;
+        int rollInFrame = 0;
         for (int frame = 0; frame < 10; frame++) {
-            if (rolls[frame * 2] + rolls[frame * 2 + 1] == 10) {
-                score = SPARE + rolls[frame * 2 + 2];
+            if (isSpare(rollInFrame)) {
+                score += SPARE + nextBollsForSpare(rollInFrame);
+                rollInFrame += 2;
+            } else if (isStrike(rollInFrame)) {
+                score += SPARE + nextBollsForStrike(rollInFrame);
+                rollInFrame += 1;
             } else {
-                score += rolls[frame * 2] + rolls[frame * 2 + 1];
+                score += rolls[rollInFrame] + rolls[rollInFrame + 1];
+                rollInFrame += 2;
             }
         }
         return score;
+    }
+
+    private int nextBollsForStrike(int rollInFrame) {
+        return rolls[rollInFrame + 1] + rolls[rollInFrame + 2];
+    }
+
+    private int nextBollsForSpare(int rollInFrame) {
+        return rolls[rollInFrame + 2];
+    }
+
+    private boolean isSpare(int roll) {
+        return rolls[roll] + rolls[roll + 1] == 10;
+    }
+
+    private boolean isStrike(int roll) {
+        return rolls[roll] == 10;
     }
 }
