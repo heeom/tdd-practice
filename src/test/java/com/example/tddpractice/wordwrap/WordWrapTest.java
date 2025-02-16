@@ -8,14 +8,33 @@ public class WordWrapTest {
 
     @Test
     public void should_wrap() {
-        assertEquals(wrap("word word", 4), "word\nword");
-        assertEquals(wrap("a dog", 5), "a dog");
-        assertEquals(wrap("a dog with a bone", 5), "a dog\nwith a \nbone");
-
+        assertWraps(null, 1, "");
+        assertWraps("", 1, "");
+        assertWraps("s", 1, "s");
+        assertWraps("ss", 1, "s\ns");
+        assertWraps("sss", 1, "s\ns\ns");
+        assertWraps("s s", 1, "s\ns");
+        assertWraps("s ss", 3, "s\nss");
+        assertWraps("four score and seven years ago our fathers brought forth upon this continent", 7, "four\nscore\nand\nseven\nyears\nago our\nfathers\nbrought\nforth\nupon\nthis\ncontine\nnt");
     }
 
-    private String wrap(String s, int length) {
-        return s.length() > length ? s.replaceAll(" ", "\n") : s;
-
+    private void assertWraps(String s, int length, String expected) {
+        assertEquals(wrap(s, length), expected);
     }
+
+    private String wrap(String s, int i) {
+        if (s == null) {
+            return "";
+        }
+        if (s.length() <= i) {
+            return s;
+        } else {
+            int point = s.lastIndexOf(" ", i);
+            if (point == -1) {
+                point = i;
+            }
+            return s.substring(0, point) + "\n" + wrap(s.substring(point).trim(), i);
+        }
+    }
+
 }
