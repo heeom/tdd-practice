@@ -1,10 +1,9 @@
 package com.example.tddpractice.bowling;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class GameTest {
 
@@ -23,13 +22,13 @@ public class GameTest {
     @Test
     public void gutterGame() {
         rollMany(0, 10);
-        assertThat(game.getScore()).isEqualTo(0);
+        Assertions.assertEquals(0, game.getScore());
     }
 
     @Test
     public void allOnes() {
         rollMany(1, 20);
-        assertThat(game.getScore()).isEqualTo(20);
+        Assertions.assertEquals(20, game.getScore());
     }
 
     private void rollMany(int pins, int roll) {
@@ -48,7 +47,7 @@ public class GameTest {
         rollMany(17, 0);
 
         // 13 failing test
-        assertThat(game.getScore()).isEqualTo(16);
+        Assertions.assertEquals(16, game.getScore());
     }
 
     @Test
@@ -64,7 +63,7 @@ public class GameTest {
         game.roll(3);
 
         rollMany(16, 0);
-        assertThat(game.getScore()).isEqualTo(26);
+        Assertions.assertEquals(26, game.getScore());
     }
 
     private void rollStrike() {
@@ -76,6 +75,6 @@ public class GameTest {
         rollMany(10, 10);
         game.roll(10);
         game.roll(10);
-        assertThat(game.getScore()).isEqualTo(300);
+        Assertions.assertEquals(300, game.getScore());
     }
 }

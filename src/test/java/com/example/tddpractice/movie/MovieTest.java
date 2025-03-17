@@ -1,9 +1,9 @@
 package com.example.tddpractice.movie;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
 
 /**
  * 1. 가장 쉬운 테스트부터 추가
@@ -23,19 +23,19 @@ public class MovieTest {
 
     @Test
     public void should_return_0_when_created() {
-        assertThat(movie.averageRating()).isEqualTo(0);
+        Assertions.assertEquals(0, movie.averageRating());
     }
 
     @Test
     public void should_return_1_when_1_was_rated() {
         movie.rate(1);
-        assertThat(movie.averageRating()).isEqualTo(1); // 최소한의 코드로 해결
+        Assertions.assertEquals(1, movie.averageRating()); // 최소한의 코드로 해결
     }
 
     @Test
     public void should_return_3_when_2_and4_was_rated() {
         movie.rate(3);
         movie.rate(4);
-        assertThat(movie.averageRating()).isEqualTo(3);
+        Assertions.assertEquals(3, movie.averageRating());
     }
 }
