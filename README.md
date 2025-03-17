@@ -1,6 +1,7 @@
 ## 🚀 TDD Practice (Test-Driven Development)
 
-- 클린 코더스의 [TDD 강의](https://www.youtube.com/watch?v=wmHV6L0e1sU) 테스트 주도 개발(TDD)을 실습하기 위한 프로젝트
+- 클린 코더스의 [TDD 강의](https://www.youtube.com/watch?v=wmHV6L0e1sU) 테스트 주도 개발(TDD)을 실습
+- [테스트 주도 개발 시작하기](https://product.kyobobook.co.kr/detail/S000001248962) 책의 내용을 실습
 - TDD(Test-Driven Development, 테스트 주도 개발)의 3가지 법칙을 기반으로 TDD 사이클(**Red → Green → Refactor**)을 연습한다.
 
 ## 📌 TDD 핵심 원칙
