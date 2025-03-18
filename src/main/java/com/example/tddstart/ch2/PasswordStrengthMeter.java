@@ -11,6 +11,19 @@ public class PasswordStrengthMeter {
         if (password == null || password.isEmpty()) {
             return PasswordStrength.INVALID;
         }
+        int count = getMetCriteriaCounts(password);
+
+        if (count <= 1) {
+            return PasswordStrength.WEAK;
+        }
+        if (count == 2) {
+            return PasswordStrength.NORMAL;
+        }
+
+        return PasswordStrength.STRONG;
+    }
+
+    private int getMetCriteriaCounts(String password) {
         int count = 0;
         if (password.length() >= 8) {
             count++;
@@ -21,14 +34,6 @@ public class PasswordStrengthMeter {
         if (NUMBER_PATTERN.matcher(password).matches()) {
             count++;
         }
-
-        if (count <= 1) {
-            return PasswordStrength.WEAK;
-        }
-        if (count == 2) {
-            return PasswordStrength.NORMAL;
-        }
-
-        return PasswordStrength.STRONG;
+        return count;
     }
 }
