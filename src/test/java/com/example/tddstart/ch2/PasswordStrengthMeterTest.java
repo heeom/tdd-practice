@@ -18,29 +18,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class PasswordStrengthMeterTest {
 
+    private PasswordStrengthMeter passwordStrengthMeter = new PasswordStrengthMeter();
+
     @Test
     @DisplayName("모든 조건을 충족하면 암호 강도는 강함이어야 한다")
     void meets_all_criteria_then_strong() {
-        PasswordStrengthMeter passwordStrengthMeter = new PasswordStrengthMeter();
-        PasswordStrength result = passwordStrengthMeter.meter("ab1234AB");
-        assertEquals(PasswordStrength.STRONG, result);
-        PasswordStrength result2 = passwordStrengthMeter.meter("abc1!Add");
-        assertEquals(PasswordStrength.STRONG, result2);
+        assertStrength(PasswordStrength.STRONG,"ab1234AB");
+        assertStrength(PasswordStrength.STRONG,"abc1!Add");
     }
 
     @Test
     @DisplayName("길이조건을 충족하지 않고, 나머지 두 조건은 충족하는 경우 강도는 보통이어야 한다")
     public void meets_other_criteria_except_for_length_then_normal() {
-        PasswordStrengthMeter passwordStrengthMeter = new PasswordStrengthMeter();
-        PasswordStrength result = passwordStrengthMeter.meter("ab12AB");
-        assertEquals(PasswordStrength.NORMAL, result);
+        assertStrength(PasswordStrength.NORMAL,"ab12AB");
     }
 
     @Test
     @DisplayName("숫자를 포함하지 않고, 나머지 두 조건은 충족하는 경우 강도는 보통이어야 한다")
     public void meets_other_criteria_except_for_number_then_strong() {
-        PasswordStrengthMeter passwordStrengthMeter = new PasswordStrengthMeter();
-        PasswordStrength result = passwordStrengthMeter.meter("ABabcdEF");
-        assertEquals(PasswordStrength.NORMAL, result);
+        assertStrength(PasswordStrength.NORMAL,"ABabcdEF");
+    }
+
+    private void assertStrength(PasswordStrength expected, String password) {
+        PasswordStrength result = passwordStrengthMeter.meter(password);
+        assertEquals(expected, result);
     }
 }
