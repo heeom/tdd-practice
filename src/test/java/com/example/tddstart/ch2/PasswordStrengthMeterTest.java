@@ -19,12 +19,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PasswordStrengthMeterTest {
 
     @Test
-    @DisplayName("모든 조건을 충족하면 암호 강도는 강함이어야 함")
+    @DisplayName("모든 조건을 충족하면 암호 강도는 강함이어야 한다")
     void meets_all_criteria_then_strong() {
         PasswordStrengthMeter passwordStrengthMeter = new PasswordStrengthMeter();
         PasswordStrength result = passwordStrengthMeter.meter("ab1234AB");
-
         assertEquals(PasswordStrength.STRONG, result);
+        PasswordStrength result2 = passwordStrengthMeter.meter("abc1!Add");
+        assertEquals(PasswordStrength.STRONG, result2);
+    }
 
+    @Test
+    @DisplayName("길이조건을 충족하지 않고, 나머지 두 조건은 충족하는 경우 강도는 보통이어야 한다")
+    public void meets_other_criteria_except_for_length_then_normal() {
+        PasswordStrengthMeter passwordStrengthMeter = new PasswordStrengthMeter();
+        PasswordStrength result = passwordStrengthMeter.meter("ab12AB");
+        assertEquals(PasswordStrength.NORMAL, result);
     }
 }
