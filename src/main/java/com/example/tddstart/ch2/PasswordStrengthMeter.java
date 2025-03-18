@@ -11,27 +11,21 @@ public class PasswordStrengthMeter {
         if (password == null || password.isEmpty()) {
             return PasswordStrength.INVALID;
         }
-        boolean lengthEnough = password.length() >= 8;
-        boolean containsUpperCase = UPPER_CASE_PATTERN.matcher(password).matches();
-        boolean containsNumber = NUMBER_PATTERN.matcher(password).matches();
-
-        if (lengthEnough && !containsUpperCase && !containsNumber) {
-            return PasswordStrength.WEAK;
+        int count = 0;
+        if (password.length() >= 8) {
+            count++;
         }
-        if (!lengthEnough && !containsUpperCase && containsNumber) {
-            return PasswordStrength.WEAK;
+        if (UPPER_CASE_PATTERN.matcher(password).matches()) {
+            count++;
         }
-        if (!lengthEnough && containsUpperCase && !containsNumber) {
-            return PasswordStrength.WEAK;
+        if (NUMBER_PATTERN.matcher(password).matches()) {
+            count++;
         }
 
-        if (!lengthEnough) {
-            return PasswordStrength.NORMAL;
+        if (count == 1) {
+            return PasswordStrength.WEAK;
         }
-        if (!containsUpperCase) {
-            return PasswordStrength.NORMAL;
-        }
-        if (!containsNumber) {
+        if (count == 2) {
             return PasswordStrength.NORMAL;
         }
 
