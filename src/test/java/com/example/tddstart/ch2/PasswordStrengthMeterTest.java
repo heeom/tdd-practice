@@ -75,6 +75,12 @@ public class PasswordStrengthMeterTest {
         assertStrength(PasswordStrength.WEAK, "ABCabc");
     }
 
+    @Test
+    @DisplayName("아무 조건도 충족하지 않는 경우 강도는 약함이어야 한다")
+    public void meets_no_criteria_then_weak() {
+        assertStrength(PasswordStrength.WEAK, "abc");
+    }
+
     private void assertStrength(PasswordStrength expected, String password) {
         PasswordStrength result = passwordStrengthMeter.meter(password);
         assertEquals(expected, result);

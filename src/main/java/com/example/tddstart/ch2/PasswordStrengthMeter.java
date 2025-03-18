@@ -22,7 +22,7 @@ public class PasswordStrengthMeter {
             count++;
         }
 
-        if (count == 1) {
+        if (count <= 1) {
             return PasswordStrength.WEAK;
         }
         if (count == 2) {
