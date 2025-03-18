@@ -40,13 +40,27 @@ public class PasswordStrengthMeterTest {
     }
 
     @Test
+    @DisplayName("null을 입력하면, INVALID를 리턴해야한다")
     public void input_null_then_invalid() {
         assertStrength(PasswordStrength.INVALID,null);
     }
 
     @Test
+    @DisplayName("빈문자열을 입력하면, INVALID를 리턴해야한다")
     public void input_empty_then_invalid() {
         assertStrength(PasswordStrength.INVALID,"");
+    }
+
+    @Test
+    @DisplayName("대문자를 포함하지 않고, 나머지 조건은 모두 충족하는 경우 강도는 보통이어야 한다")
+    public void meets_other_criteria_except_for_uppercase_then_normal() {
+        assertStrength(PasswordStrength.NORMAL,"ab1234cd");
+    }
+
+    @Test
+    @DisplayName("길이가 8글자 이상인 조건만 충족하는 경우 강도는 약함이어야 한다")
+    public void meets_only_length_criteria_then_weak() {
+        assertStrength(PasswordStrength.WEAK, "abcdefgh");
     }
 
     private void assertStrength(PasswordStrength expected, String password) {

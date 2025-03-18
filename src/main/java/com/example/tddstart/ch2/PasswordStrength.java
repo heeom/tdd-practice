@@ -3,5 +3,5 @@ package com.example.tddstart.ch2;
 public enum PasswordStrength {
 
     STRONG,
-    INVALID, NORMAL
+    INVALID, WEAK, NORMAL
 }
