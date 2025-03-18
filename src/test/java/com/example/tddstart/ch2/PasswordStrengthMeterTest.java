@@ -39,6 +39,16 @@ public class PasswordStrengthMeterTest {
         assertStrength(PasswordStrength.NORMAL,"ABabcdEF");
     }
 
+    @Test
+    public void input_null_then_invalid() {
+        assertStrength(PasswordStrength.INVALID,null);
+    }
+
+    @Test
+    public void input_empty_then_invalid() {
+        assertStrength(PasswordStrength.INVALID,"");
+    }
+
     private void assertStrength(PasswordStrength expected, String password) {
         PasswordStrength result = passwordStrengthMeter.meter(password);
         assertEquals(expected, result);
