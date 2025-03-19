@@ -50,3 +50,6 @@
     - most degenerate case를 먼저 작성하고
     - 이 복잡한 퀴즈를 아주 작은 스텝씩 올라가자
     - 각 경우에서 해당 테스트를 통과시키도록 specific한 fix를 하는것이 아니라 production code를 일반화하여 테스트가 통과되도록 하자
+
+## 테스트 주도 개발 시작하기
+- [ch02 TDD 시작](https://github.com/heeom/TIL/blob/base/TDD/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%A3%BC%EB%8F%84%20%EA%B0%9C%EB%B0%9C%20%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/ch02%20TDD%20%EC%8B%9C%EC%9E%91.md)
