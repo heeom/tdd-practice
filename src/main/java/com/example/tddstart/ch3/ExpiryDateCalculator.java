@@ -7,6 +7,10 @@ public class ExpiryDateCalculator {
 
 
     public LocalDate calculateExpiryDate(LocalDate billingDate, BigDecimal payAmount) {
-        return billingDate.plusMonths(1L);
+        return calculateExpiryDate(new PayData(billingDate, payAmount, billingDate));
+    }
+
+    public LocalDate calculateExpiryDate(PayData payData) {
+        return payData.getBillingDate().plusMonths(1);
     }
 }
