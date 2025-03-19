@@ -16,14 +16,6 @@ public class ExpiryDateCalculatorTest {
         assertExpiryDate(LocalDate.of(2025, 4, 19), BigDecimal.valueOf(10_000), LocalDate.of(2025, 5,19));
     }
 
-    private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
-        ExpiryDateCalculator expiryDateCalculator = new ExpiryDateCalculator();
-
-        LocalDate expiryDate = expiryDateCalculator.calculateExpiryDate(billingDate, payAmount);
-
-        Assertions.assertEquals(expectedExpiryDate, expiryDate);
-    }
-
     @Test
     @DisplayName("납부일과 한달뒤 날짜가 같지 않음")
     public void billing_date_not_matched_with_1_month_later_date() {
@@ -44,5 +36,17 @@ public class ExpiryDateCalculatorTest {
                 BigDecimal.valueOf(10_000),
                 LocalDate.of(2024, 2, 29)
         );
+    }
+
+    private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
+        assertExpiryDate(new PayData(billingDate, payAmount, billingDate), expectedExpiryDate);
+    }
+
+    private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
+        ExpiryDateCalculator expiryDateCalculator = new ExpiryDateCalculator();
+
+        LocalDate expiryDate = expiryDateCalculator.calculateExpiryDate(payData.getBillingDate(), payData.getPayAmount());
+
+        Assertions.assertEquals(expectedExpiryDate, expiryDate);
     }
 }
