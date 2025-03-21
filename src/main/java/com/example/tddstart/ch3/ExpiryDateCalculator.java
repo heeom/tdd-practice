@@ -9,7 +9,7 @@ public class ExpiryDateCalculator {
     private static final BigDecimal DIVISOR = BigDecimal.valueOf(10_000);
 
     public LocalDate calculateExpiryDate(PayData payData) {
-        int added_month = payData.getPayAmount().divide(DIVISOR).intValue();
+        int added_month = payData.getPayAmount().compareTo(BigDecimal.valueOf(100_000)) == 0 ? 12 : payData.getPayAmount().divide(DIVISOR).intValue();
 
         if (payData.getFirstBillingDate() != null) {
             return expiryDateUsingFirstBillingDate(payData, added_month);
