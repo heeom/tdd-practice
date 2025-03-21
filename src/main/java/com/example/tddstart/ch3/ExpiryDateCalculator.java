@@ -2,6 +2,8 @@ package com.example.tddstart.ch3;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
 
 public class ExpiryDateCalculator {
 
@@ -14,6 +16,10 @@ public class ExpiryDateCalculator {
             int firstBillingDay = getDay(payData.getFirstBillingDate());
             LocalDate candidateExpiryDate = getCandidateExpiryDate(payData.getBillingDate(), added_month);
             if (firstBillingDay != getDay(candidateExpiryDate)) {
+                int endOfCandidateExpiryMonth = YearMonth.from(candidateExpiryDate).lengthOfMonth();
+                if (endOfCandidateExpiryMonth < firstBillingDay) {
+                    return candidateExpiryDate.withDayOfMonth(endOfCandidateExpiryMonth);
+                }
                 return candidateExpiryDate.withDayOfMonth(firstBillingDay);
             }
         }
