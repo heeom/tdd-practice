@@ -14,7 +14,6 @@ public class ExpiryDateCalculatorTest {
     public void pay_10000_then_expiry_date_should_be_1_month_later() {
         assertExpiryDate(
                 new PayData(
-                        LocalDate.of(2025, 3, 19),
                         BigDecimal.valueOf(10_000),
                         LocalDate.of(2025, 3, 19)
                 ),
@@ -22,7 +21,6 @@ public class ExpiryDateCalculatorTest {
         );
         assertExpiryDate(
                 new PayData(
-                        LocalDate.of(2025, 4, 19),
                         BigDecimal.valueOf(10_000),
                         LocalDate.of(2025, 4, 19)
                 ),
@@ -35,8 +33,7 @@ public class ExpiryDateCalculatorTest {
     public void billing_date_not_matched_with_1_month_later_date() {
         assertExpiryDate(
                 new PayData(
-                        LocalDate.of(2025, 1, 31),
-                        BigDecimal.valueOf(10_0000),
+                        BigDecimal.valueOf(10_000),
                         LocalDate.of(2025, 1, 31)
                 ),
                 LocalDate.of(2025, 2, 28)
@@ -44,7 +41,6 @@ public class ExpiryDateCalculatorTest {
 
         assertExpiryDate(
                 new PayData(
-                        LocalDate.of(2025, 5, 31),
                         BigDecimal.valueOf(10_000),
                         LocalDate.of(2025, 5, 31)
                 ),
@@ -53,7 +49,6 @@ public class ExpiryDateCalculatorTest {
 
         assertExpiryDate(
                 new PayData(
-                        LocalDate.of(2024, 1, 31),
                         BigDecimal.valueOf(10_000),
                         LocalDate.of(2024, 1, 31)
                 ),
@@ -88,6 +83,19 @@ public class ExpiryDateCalculatorTest {
 
         assertExpiryDate(thirdPayData, LocalDate.of(2025, 7, 31));
     }
+
+    @Test
+    @DisplayName("20_000원을 납부하면 만료일은 2개월 뒤가 된다")
+    public void pay_20_000_then_expiry_date_should_be_2_month_later() {
+
+    }
+
+    @Test
+    @DisplayName("30_000원을 납부하면 만료일은 3개월 뒤가 된다")
+    public void pay_30_000_then_expiry_date_should_be_3_month_later() {
+
+    }
+
 
     private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
         assertExpiryDate(new PayData(billingDate, payAmount, billingDate), expectedExpiryDate);

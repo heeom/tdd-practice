@@ -7,10 +7,12 @@ public class ExpiryDateCalculator {
     private static final int ADDED_MONTH = 1;
 
     public LocalDate calculateExpiryDate(PayData payData) {
-        int firstBillingDay = getDay(payData.getFirstBillingDate());
-        LocalDate candidateExpiryDate = getCandidateExpiryDate(payData.getBillingDate(), ADDED_MONTH);
-        if (firstBillingDay != getDay(candidateExpiryDate)) {
-            return candidateExpiryDate.withDayOfMonth(firstBillingDay);
+        if (payData.getFirstBillingDate() != null) {
+            int firstBillingDay = getDay(payData.getFirstBillingDate());
+            LocalDate candidateExpiryDate = getCandidateExpiryDate(payData.getBillingDate(), ADDED_MONTH);
+            if (firstBillingDay != getDay(candidateExpiryDate)) {
+                return candidateExpiryDate.withDayOfMonth(firstBillingDay);
+            }
         }
         return getCandidateExpiryDate(payData.getBillingDate(), ADDED_MONTH);
     }

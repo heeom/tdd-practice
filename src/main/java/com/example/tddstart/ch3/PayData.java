@@ -15,6 +15,10 @@ public class PayData {
         this.billingDate = billingDate;
     }
 
+    public PayData(BigDecimal payAmount, LocalDate billingDate) {
+        this(null, payAmount, billingDate);
+    }
+
     public LocalDate getFirstBillingDate() {
         return firstBillingDate;
     }
