@@ -79,6 +79,14 @@ public class ExpiryDateCalculatorTest {
         );
 
         assertExpiryDate(secondPayData, LocalDate.of(2025, 3, 30));
+
+        PayData thirdPayData = new PayData(
+                LocalDate.of(2025, 5, 31),
+                BigDecimal.valueOf(10_000),
+                LocalDate.of(2025, 6, 30)
+        );
+
+        assertExpiryDate(thirdPayData, LocalDate.of(2025, 7, 31));
     }
 
     private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
