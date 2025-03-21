@@ -33,7 +33,7 @@ public class ExpiryDateCalculator {
 
     }
 
-    private static int lastDayOfMonth(LocalDate candidateExpiryDate) {
+    private int lastDayOfMonth(LocalDate candidateExpiryDate) {
         return YearMonth.from(candidateExpiryDate).lengthOfMonth();
     }
 

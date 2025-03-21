@@ -132,6 +132,20 @@ public class ExpiryDateCalculatorTest {
         );
     }
 
+    @Test
+    @DisplayName("10개월 요금을 납부하면 1년 제공")
+    public void pay_100_000_then_expiry_date_should_be_1_year_later() {
+        PayData payData = new PayData(
+                BigDecimal.valueOf(100_000),
+                LocalDate.of(2025, 1, 1)
+        );
+
+        assertExpiryDate(
+                payData,
+                LocalDate.of(2026, 1, 1)
+        );
+    }
+
 
     private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
         assertExpiryDate(new PayData(billingDate, payAmount, billingDate), expectedExpiryDate);
