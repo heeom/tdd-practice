@@ -66,11 +66,19 @@ public class ExpiryDateCalculatorTest {
     public void first_billing_date_not_equal_to_second_billing_date() {
         PayData payData = new PayData(
                 LocalDate.of(2025, 1, 31),
-                BigDecimal.valueOf(10_0000),
+                BigDecimal.valueOf(10_000),
                 LocalDate.of(2025, 2, 28)
         );
 
         assertExpiryDate(payData, LocalDate.of(2025, 3, 31));
+
+        PayData secondPayData = new PayData(
+                LocalDate.of(2025, 1, 30),
+                BigDecimal.valueOf(10_000),
+                LocalDate.of(2025, 2, 28)
+        );
+
+        assertExpiryDate(secondPayData, LocalDate.of(2025, 3, 30));
     }
 
     private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
