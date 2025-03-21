@@ -2,7 +2,6 @@ package com.example.tddstart.ch3;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 
 public class ExpiryDateCalculator {
@@ -19,24 +18,34 @@ public class ExpiryDateCalculator {
     }
 
     private LocalDate expiryDateUsingFirstBillingDate(PayData payData, int added_month) {
-        final int firstBillingDay = getDay(payData.getFirstBillingDate());
+        final int firstBillingDay = dayOfMonth(payData.getFirstBillingDate());
         LocalDate candidateExpiryDate = getCandidateExpiryDate(payData.getBillingDate(), added_month);
-        if (firstBillingDay != getDay(candidateExpiryDate)) {
-            int endOfCandidateExpiryMonth = YearMonth.from(candidateExpiryDate).lengthOfMonth();
-            if (endOfCandidateExpiryMonth < firstBillingDay) {
-                return candidateExpiryDate.withDayOfMonth(endOfCandidateExpiryMonth);
-            }
-            return candidateExpiryDate.withDayOfMonth(firstBillingDay);
-        } else {
+
+        if (isSameDayOfMonth(firstBillingDay, candidateExpiryDate)) {
             return getCandidateExpiryDate(payData.getBillingDate(), added_month);
         }
+
+        int endOfCandidateExpiryMonth = lastDayOfMonth(candidateExpiryDate);
+        if (endOfCandidateExpiryMonth < firstBillingDay) {
+            return candidateExpiryDate.withDayOfMonth(endOfCandidateExpiryMonth);
+        }
+        return candidateExpiryDate.withDayOfMonth(firstBillingDay);
+
+    }
+
+    private static int lastDayOfMonth(LocalDate candidateExpiryDate) {
+        return YearMonth.from(candidateExpiryDate).lengthOfMonth();
+    }
+
+    private boolean isSameDayOfMonth(int firstBillingDay, LocalDate candidateExpiryDate) {
+        return firstBillingDay == dayOfMonth(candidateExpiryDate);
     }
 
     private LocalDate getCandidateExpiryDate(LocalDate date, int month) {
         return date.plusMonths(month);
     }
 
-    private int getDay(LocalDate date) {
+    private int dayOfMonth(LocalDate date) {
         return date.getDayOfMonth();
     }
 }
