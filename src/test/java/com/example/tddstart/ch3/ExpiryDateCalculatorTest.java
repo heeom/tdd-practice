@@ -106,6 +106,17 @@ public class ExpiryDateCalculatorTest {
         assertExpiryDate(payData, LocalDate.of(2025, 6, 19));
     }
 
+    @Test
+    @DisplayName("50_000원을 납부하면 만료일은 3개월 뒤가 된다")
+    public void pay_50_000_then_expiry_date_should_be_5_month_later() {
+        PayData payData = new PayData(
+                BigDecimal.valueOf(50_000),
+                LocalDate.of(2025, 3, 19)
+        );
+
+        assertExpiryDate(payData, LocalDate.of(2025, 8, 19));
+    }
+
 
     private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
         assertExpiryDate(new PayData(billingDate, payAmount, billingDate), expectedExpiryDate);
