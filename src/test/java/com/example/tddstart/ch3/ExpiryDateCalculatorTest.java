@@ -61,6 +61,18 @@ public class ExpiryDateCalculatorTest {
         );
     }
 
+    @Test
+    @DisplayName("첫번째 납부일과 두번째 납부일의 납부일자가 다를 때 10000원을 납부하면 만료일은 첫번째 납부일을 기준으로 정한다")
+    public void first_billing_date_not_equal_to_second_billing_date() {
+        PayData payData = new PayData(
+                LocalDate.of(2025, 1, 31),
+                BigDecimal.valueOf(10_0000),
+                LocalDate.of(2025, 2, 28)
+        );
+
+        assertExpiryDate(payData, LocalDate.of(2025, 3, 31));
+    }
+
     private void assertExpiryDate(LocalDate billingDate, BigDecimal payAmount, LocalDate expectedExpiryDate) {
         assertExpiryDate(new PayData(billingDate, payAmount, billingDate), expectedExpiryDate);
     }
