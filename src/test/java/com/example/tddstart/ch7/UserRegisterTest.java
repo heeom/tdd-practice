@@ -8,11 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserRegisterTest {
     private UserRegister userRegister;
-    private StubWeakPasswordChecker stubWeakPasswordChecker = new StubWeakPasswordChecker();
+    private StubWeakPasswordChecker stubWeakPasswordChecker;
+    private MemoryUserRepository memoryUserRepository;
 
     @BeforeEach
     void setup() {
-        userRegister = new UserRegister(stubWeakPasswordChecker);
+        stubWeakPasswordChecker = new StubWeakPasswordChecker();
+        memoryUserRepository = new MemoryUserRepository();
+        userRegister = new UserRegister(stubWeakPasswordChecker, memoryUserRepository);
     }
 
     @DisplayName("약한 암호면 가입 실패")
@@ -22,6 +25,17 @@ public class UserRegisterTest {
         stubWeakPasswordChecker.setWeak(true);
 
         assertThrows(WeakPasswordException.class, () -> {
+           userRegister.register("swim12", "password1","swim12@email.com");
+        });
+    }
+
+    @DisplayName("동일 아이디를 가진 회원이 있으면 예외 발생")
+    @Test
+    void duplicateIdExists_thenRegisterFail() {
+        // 중복 id 저장
+        memoryUserRepository.save(new User("swim12", "password1","swim12@email.com"));
+
+        assertThrows(DuplicateIdException.class, () -> {
            userRegister.register("swim12", "password1","swim12@email.com");
         });
     }
