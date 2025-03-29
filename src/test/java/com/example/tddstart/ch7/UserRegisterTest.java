@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserRegisterTest {
     private UserRegister userRegister;
@@ -38,5 +38,15 @@ public class UserRegisterTest {
         assertThrows(DuplicateIdException.class, () -> {
            userRegister.register("swim12", "password1","swim12@email.com");
         });
+    }
+
+    @DisplayName("동일 아이디를 가진 회원이 없으면 가입 성공")
+    @Test
+    void duplicateIdNotExists_thenRegisterSuccess() {
+
+        userRegister.register("swim12", "password1","swim12@email.com");
+
+        boolean result = memoryUserRepository.existsById("swim12");
+        assertEquals(true, result);
     }
 }
