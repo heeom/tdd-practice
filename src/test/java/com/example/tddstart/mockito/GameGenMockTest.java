@@ -11,6 +11,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.mock;
 
+/**
+ * Mockito 기초 사용법
+ * - 의존 설정
+ * - 모의객체 설정
+ * - 스텁 설정
+ * - 행위 검증
+ * - 인자 캡쳐
+ */
 public class GameGenMockTest {
 
     @Test
