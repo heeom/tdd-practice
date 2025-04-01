@@ -80,6 +80,7 @@ public class UserRegisterTest {
 
         then(mockEmailNotifier).should().sendRegistrationEmail(captor.capture());
 
+        // 사용한 인자 검증
         String realEmail = captor.getValue();
         assertEquals("swim12@email.com", realEmail);
     }
