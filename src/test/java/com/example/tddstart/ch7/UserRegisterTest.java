@@ -3,8 +3,12 @@ package com.example.tddstart.ch7;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
 
 public class UserRegisterTest {
     private UserRegister userRegister;
@@ -63,6 +67,20 @@ public class UserRegisterTest {
                 "swim12@email.com",
                 emailNotifier.getEmail()
         );
+    }
 
+    @DisplayName("가입하면 메일을 전송함")
+    @Test
+    void whenRegisterThenSendEmail() {
+        EmailNotifier mockEmailNotifier = mock(EmailNotifier.class);
+        UserRegister register = new UserRegister(stubWeakPasswordChecker, memoryUserRepository, mockEmailNotifier);
+        register.register("swim12", "password1","swim12@email.com");
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+
+        then(mockEmailNotifier).should().sendRegistrationEmail(captor.capture());
+
+        String realEmail = captor.getValue();
+        assertEquals("swim12@email.com", realEmail);
     }
 }

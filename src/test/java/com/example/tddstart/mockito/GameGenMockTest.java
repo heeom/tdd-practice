@@ -95,6 +95,4 @@ public class GameGenMockTest {
         then(numGenMock).should(atLeast(1)).generate(any());
         then(numGenMock).should(atLeast(1)).generate(any());
     }
-
-
 }
