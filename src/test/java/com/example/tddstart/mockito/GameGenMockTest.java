@@ -7,8 +7,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -79,4 +78,23 @@ public class GameGenMockTest {
         String result = mockList.set(1, "123");
         assertEquals("456", result);
     }
+
+    // 행위 검증
+    @Test
+    void init() {
+        GameNumGen numGenMock = mock(GameNumGen.class);
+        NumGame numGame = new NumGame(numGenMock);
+        numGame.init(GameLevel.EASY);
+
+        // generate 메서드가 호출되었는지 검증
+        then(numGenMock).should().generate(any());
+        // generate 메서드가 정확하게 한번 호출되었는지 검증
+        then(numGenMock).should(only()).generate(any());
+        then(numGenMock).should(times(1)).generate(any());
+        then(numGenMock).should(atLeastOnce()).generate(any());
+        then(numGenMock).should(atLeast(1)).generate(any());
+        then(numGenMock).should(atLeast(1)).generate(any());
+    }
+
+
 }
